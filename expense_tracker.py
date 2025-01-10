@@ -1,39 +1,46 @@
+import sys
+import matplotlib
+import matplotlib.pyplot as plt   
+import numpy as np
+matplotlib.use("TkAgg")
+
+
+# Initialize nested dictionary
 expenses = {"Food" :{}, "Entertainment" :{}, "Transport" : {}, "Housing" : {}, "Healthcare" : {} } 
+# Initialize a list of all categories
 categories = ["Food","Entertainment","Transport", "Housing","Healthcare"]
 
 
-
+# Define a function to get the expense and it's amount
 def get_expense(expense):
     
     expense_amount = 0
     expense_name =""
     for item in expense.split():
-        if item.isdigit():
+        if item.isdigit(): # .isdigit() does not account for floats
             expense_amount = float(item)
         else:
             expense_name = item
     return expense_name,expense_amount
-        
-# print(get_expense())
+       
 
+# Define a function to display all the categories
 def show_category():
     y = 1 
     for category in categories:
         print("{}) {} ".format(y,category))
         y+=1
  
-
+# Define a function to control whether a user wants to add a function or not
 def add_new_expense(add_expense):
     
     if add_expense.lower().startswith("y"):
         return True
     else:
         return False
-# add_new_expense()
-# show_category()
 
 
-
+# Define the main function that controls the flow of the expense tracker.
 def main():
     food_total= 0
     entertainment_total= 0
@@ -44,11 +51,17 @@ def main():
     
     while ask:
         add_expense  = input("Do you want to add an expense? ")
+        print(" ")
+        print("-----------------------------------------")
         if add_new_expense(add_expense):
             
             expense = input("Enter expense and amount (e.g Pizza 30): ")
+            print(" ")
+            print("-----------------------------------------")
             expense_name,expense_amount= get_expense(expense)
             show_category()
+            print(" ")
+            print("-----------------------------------------")
             chosen_category=int(input("Which category? ")) 
             if chosen_category == 1:
                 expenses["Food"][expense_name] = expense_amount
@@ -73,6 +86,19 @@ Transport total: {transport_total} \n
 Housing total: {housing_total} \n
 Healthcare total: {healthcare_total}
                 """)
+            
+# Assign the x and y coordinates for the bar graph
+    x = np.array(["Food", "Entertainment", "Transport", "Housing", "Healthcare"])
+    y = np.array([food_total, entertainment_total,transport_total,housing_total,healthcare_total])
+
+# Plot the graph and save it as a picture
+    plt.bar(x,y)
+    plt.savefig("expenses_graph.png")
+
+    plt.savefig(sys.stdout.buffer)
+    sys.stdout.flush
+
+
           
 
 if __name__ == "__main__":
