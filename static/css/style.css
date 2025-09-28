@@ -1,0 +1,109 @@
+/* ===== BudgetFlow Theme ===== */
+
+/* Root colors for easy updates */
+:root {
+  --primary-green: #2D6A4F;
+  --accent-green: #40916C;
+  --dark-green: #1B4332;
+  --light-green: #B7E4C7;
+  --highlight-yellow: #F9C74F;
+  --neutral-light: #F8F9FA;
+  --text-dark: #212529;
+  --danger-red: #F94144;
+  --white: #ffffff;
+}
+
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body & Layout */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--neutral-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding: 1rem;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--dark-green);
+  color: var(--white);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: var(--white);
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Cards */
+.card {
+  background-color: var(--white);
+  border: 1px solid #ddd;
+  border-left: 5px solid var(--primary-green);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Buttons */
+.btn {
+  background-color: var(--primary-green);
+  color: var(--white);
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--accent-green);
+}
+
+.btn-warning {
+  background-color: var(--highlight-yellow);
+  color: var(--text-dark);
+}
+
+.btn-danger {
+  background-color: var(--danger-red);
+}
+
+/* Graph Section */
+.graph-container {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Penny Advice Box */
+.penny-advice {
+  background-color: var(--highlight-yellow);
+  border-left: 6px solid var(--accent-green);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+.penny-advice::before {
+  content: "💡 Penny says: ";
+  font-weight: bold;
+}
