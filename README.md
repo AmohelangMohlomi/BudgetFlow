@@ -1,4 +1,4 @@
-# 💰 BudgetFlow
+# BudgetFlow
 
 **BudgetFlow** is a smart personal budgeting web application that helps you track your expenses, build monthly budgets, and stay on top of your financial goals — all in one place.
 
@@ -6,23 +6,23 @@ With category-based expense tracking, insightful graphs, and AI-powered financia
 
 ---
 
-## 📌 Features
+## Features
 
-- 🔖 **Category-Based Expense Tracking**  
+- **Category-Based Expense Tracking**  
   Add and manage expenses across categories like Transport, Food, Entertainment, and more.
 
-- 📊 **Monthly Budget Analysis**  
+- **Monthly Budget Analysis**  
   Visualize your spending habits and savings with easy-to-understand charts.
 
-- 🧠 **AI Financial Advisor – Meet Penny**  
+- **AI Financial Advisor – Meet Penny**  
   Get personalized advice from **Penny**, your built-in AI assistant, who helps you stay on track based on your financial behavior.
 
-- ✅ **Progress Tracking**  
+- **Progress Tracking**  
   See if you're within your budget and how well you're sticking to your savings goals.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend:** Python, Flask, SQLite3  
 - **Frontend:** HTML, CSS, JavaScript  
@@ -31,13 +31,13 @@ With category-based expense tracking, insightful graphs, and AI-powered financia
 
 ---
 
-## 📷 Screenshots *(optional)*
+## Demo
 
-You can include screenshots or GIFs here once you have them.
+BudgetFlow demo link ...
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Python 3.x
