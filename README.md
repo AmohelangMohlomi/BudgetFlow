@@ -1,71 +1,52 @@
-# Table of Contents
+# 💰 BudgetFlow
 
-1. [PROJECT_OVERVIEW]
-2. [PROBLEM_STATEMENT]
-3. [FUNCTIONAL_REQUIREMENTS]
-4. [TECHNICAL_REQUIREMENTS]
-5. [DEVELOPMENT_PLAN]
+**BudgetFlow** is a smart personal budgeting web application that helps you track your expenses, build monthly budgets, and stay on top of your financial goals — all in one place.
 
-# PROJECT OVERVIEW :
+With category-based expense tracking, insightful graphs, and AI-powered financial advice from **Penny**, your friendly budgeting assistant, BudgetFlow is your personal financial sidekick.
 
-- PROJECT NAME : `BudgetFlow`
-- PROGRAMMING LANGUAGE : `Python`
-- GOAL : `To create an expense tracker where a user can input their expenses & categorize them (e.g. food, entertainment, trasnport ...) and the tracker will calculate the total spent on each category and display them on a bar chart.`
+---
 
-# PROBLEM STATEMENT :
+## 📌 Features
 
-- PROBLEM DESCRIPTION : `Users need to be able to track their expenses easily, creating an expense tracker that can take in as many expenses as the user would to put in and calculate how much is spent on each category would make it easier for the user to manage their finances.`
+- 🔖 **Category-Based Expense Tracking**  
+  Add and manage expenses across categories like Transport, Food, Entertainment, and more.
 
-- DESIRED OUTCOME : `The tracker should return a bar chart of all the categories and the amount spent on each.`
+- 📊 **Monthly Budget Analysis**  
+  Visualize your spending habits and savings with easy-to-understand charts.
 
-# FUNCTIONAL REQUIREMENTS :
+- 🧠 **AI Financial Advisor – Meet Penny**  
+  Get personalized advice from **Penny**, your built-in AI assistant, who helps you stay on track based on your financial behavior.
 
-- FEATURES : ` ~ Take in user input.`
-             ` ~ Categorize each expense.`
-             ` ~ Categorize each expense.`
-             ` ~ Add together the amount of each expense for each category.`
-             ` ~ Put each category on a bar chart.`
+- ✅ **Progress Tracking**  
+  See if you're within your budget and how well you're sticking to your savings goals.
 
-- INPUT : `An expense, it's amount and it's category.`
+---
 
-- OUTPUT : ` A graph that represents each catergory of the expense and the amount spent on each.`
+## 🛠️ Tech Stack
 
-# TECHNICAL REQUIREMENTS :
+- **Backend:** Python, Flask, SQLite3  
+- **Frontend:** HTML, CSS, JavaScript  
+- **Data Visualization:** Matplotlib  
+- **AI Advisor:** Custom logic (Penny) using Python (expandable to ML in the future)
 
-- Variables, data types (integer, float, string, list, dictionary)
-- Functions (custom and built-in functions like input(), print())
-- Operators (arithmetic, comparison, logical)
-- Conditional statements (if-else), loops (for, while)
-- Working with lists, dictionaries, and basic user input
-- Python packages (use matplotlib for visualizing expenses)
+---
 
-# DEVELOPMENT PLAN :
+## 📷 Screenshots *(optional)*
 
-_TODO:_
+You can include screenshots or GIFs here once you have them.
 
-## STEP 1:
-Use the input() function to take in user input(expenses) and create options of the categories for the user to choose from after each expense.
-I can prompt the user to input data 3 times(1 for the expense, 2 for the amount, 3 for the category) 
-The amount needs to be a floating point number to account for decimals
-Use a while loop to control the flow of the tracker to allow the user to put in as many expenses as they see fit.
+---
 
+## 🚀 Getting Started
 
-## STEP 2:
+### Prerequisites
+- Python 3.x
+- `pip` for installing packages
 
-Could have a nested dictionary where the category is the key and the expenses are the keys of each nested category and their amounts as the values. 
-If the user chooses a certain category, the expense gets put in a dictionary as the key and it's amount as the value. 
+### Installation
 
-### EXAMPLE:
- ```python
-Expenses ={"Food" :{"pizza":50, "chocolate": 5}, "Entertainment" :{"Netflix": 250}, "Transport" : {"Uber": 50}} 
-```
-## STEP 3:
-Add all the amounts of the expenses in each category.
-
-## STEP 4:
-Use the matplotlib library to plot the graph using the totals of each category then save the graph as a picture(png).
-
-
-
-
-
+```bash
+git clone https://github.com/AmohelangMohlomi/BudgetFlow.git
+cd BudgetFlow
+pip install -r requirements.txt
+python app.py
