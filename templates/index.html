@@ -3,6 +3,8 @@
     <head>
         <title>BudgetFlow</title>
         <link rel="stylesheet" href="static/css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     </head>
 
@@ -19,9 +21,18 @@
             </nav>
         </div>
 
+          
+   
+
         <div class="card">
-            <h2>Monthly Overview</h2>
-            <p>Your savings this month are 22% above average. Great job!</p>
+            <h2>ABOUT BUDGETFLOW</h2>
+            <h5>Welcome to BudgetFlow — where your money meets mindfulness. Track smarter, save better, live freer.</h5>
+            <div class="graph-container">
+                <canvas id="savingsLineChart"></canvas>
+            </div>
+        </div>
+            <p class="italic-heading">BudgetFlow is a user-friendly personal finance app that helps you track expenses, set budgets, and visualize your savings with clear, interactive charts. By categorizing your spending—like transport, food, and entertainment—it gives you a simple way to see where your money goes each month.
+                Meet Penny, your AI-powered financial assistant, who offers personalized advice to keep you on track and help you save smarter. Whether you’re new to budgeting or looking to optimize your finances, BudgetFlow makes managing your money easier, more insightful, and a little more fun.</p>
         </div>
 
         <button class="btn">Add Expense</button>
@@ -30,6 +41,6 @@
             Consider setting a weekly food budget to save more consistently.
         </div>
 
-        <h1>ABOUT BUDGETFLOW</h1>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
     </body>
 </html>
