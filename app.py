@@ -8,6 +8,7 @@ import markdown
 import matplotlib
 import matplotlib.pyplot as plt   
 import numpy as np
+from functools import wraps
 
 load_dotenv() 
 
@@ -19,7 +20,6 @@ app.secret_key = 'your_secret_key'
 def index():
     return render_template("index.html")
 
-from functools import wraps
 
 def login_required(f):
     @wraps(f)
@@ -103,7 +103,13 @@ def dashboard():
     if 'username' not in session:
         flash("Please login to access the dashboard.", "error")
         return redirect(url_for("login"))
-    return render_template("dashboard.html")
+
+    user = get_user(session['username'])
+    user_id = user["id"]
+    expenses = get_user_expenses(user_id)
+
+    return render_template("dashboard.html", expenses=expenses)
+
 
 @app.route("/settings")
 @login_required
@@ -195,6 +201,18 @@ def save_expense(user_id, amount, category, description, date):
         (user_id, amount, category, description, date)
     )
     db.commit()
+
+def get_user_expenses(user_id):
+    db = get_db()
+    cursor = db.execute(
+        '''
+        SELECT * FROM expenses
+        WHERE user_id = ?
+        ORDER BY date DESC
+        ''',
+        (user_id,)
+    )
+    return cursor.fetchall()
 
 
 if __name__=="__main__":

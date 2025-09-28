@@ -113,3 +113,19 @@ body {
   font-style: italic;
 }
 
+.expenses-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.expenses-table th,
+.expenses-table td {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.expenses-table th {
+  background-color: var(--light-green);
+}

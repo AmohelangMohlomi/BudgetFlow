@@ -31,47 +31,36 @@
         <img src="{{ url_for('static', filename='images/savings_graph.png') }}" alt="Savings Graph" style="width: 100%; max-width: 600px;">
     </div>
 
-    <!-- Budget Breakdown -->
-    <div class="card">
-        <h3>Spending Breakdown</h3>
-        <!-- Replace with chart later -->
-        <ul>
-            <li>🍔 Food: $250</li>
-            <li>🚗 Transport: $120</li>
-            <li>🏠 Rent: $700</li>
-            <li>🎉 Entertainment: $90</li>
-            <li>🛒 Misc: $60</li>
-        </ul>
-    </div>
+        <!-- Budget Breakdown -->
+        <div class="card">
+        <h2>Your Expenses</h2>
 
-    <!-- Recent Transactions -->
-    <div class="card">
-        <h3>Recent Expenses</h3>
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Amount</th>
-                    <th>Note</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2025-09-25</td>
-                    <td>Food</td>
-                    <td>$18</td>
-                    <td>Lunch at café</td>
-                </tr>
-                <tr>
-                    <td>2025-09-24</td>
-                    <td>Transport</td>
-                    <td>$6</td>
-                    <td>Bus fare</td>
-                </tr>
+    {% if expenses %}
+    <table class="expenses-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount ($)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense['date'] }}</td>
+                <td>{{ expense['category'] }}</td>
+                <td>{{ expense['description'] or "-" }}</td>
+                <td>{{ expense['amount'] }}</td>
+            </tr>
+            {% endfor %}
             </tbody>
         </table>
-    </div>
+        {% else %}
+        <p>You haven't added any expenses yet.</p>
+        {% endif %}
+
+    
 
 
     <div class="penny-advice">
