@@ -18,11 +18,11 @@ app.secret_key = 'your_secret_key'
 def home():
     return render_template("index.html")
 
-@app.route("/login")
+@app.route("/login", methods=["GET","POST"])
 def login():
     return render_template("login.html")
 
-@app.route("/signup")
+@app.route("/signup", methods=["GET","POST"])
 def signup():
     return render_template("signup.html")
 
