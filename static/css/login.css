@@ -59,3 +59,21 @@
 .login-footer a:hover {
   text-decoration: underline;
 }
+
+.flash-message {
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.flash-message.success {
+  background-color: var(--light-green);
+  color: var(--dark-green);
+}
+
+.flash-message.error {
+  background-color: var(--danger-red);
+  color: var(--white);
+}

@@ -12,19 +12,56 @@ import numpy as np
 load_dotenv() 
 
 app = Flask(__name__)
+DATABASE = 'users.db'
 app.secret_key = 'your_secret_key' 
 
 @app.route("/")
-def home():
+def index():
     return render_template("index.html")
 
-@app.route("/login", methods=["GET","POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        user = get_user(username)
+        if user and user['password'] == password:  
+            session['username'] = username  
+            flash('Logged in successfully!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid credentials, please try again.', 'error')
+
     return render_template("login.html")
 
-@app.route("/signup", methods=["GET","POST"])
+
+
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
-    return render_template("signup.html")
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        if password != confirm_password:
+            flash('Passwords do not match.', 'error')
+            return render_template('signup.html')
+
+        if len(password) < 8:
+            flash('Password must be at least 8 characters.', 'error')
+            return render_template('signup.html')
+
+        success = add_user(username, password)  
+
+        if success:
+            flash('Account created successfully! Please login.', 'success')
+            return redirect(url_for('login'))
+        else:
+            flash('Username already exists. Please choose a different one.', 'error')
+
+    return render_template('signup.html')
+
 
 @app.route("/add-expense")
 def add_expense():
@@ -32,6 +69,9 @@ def add_expense():
 
 @app.route("/dashboard")
 def dashboard():
+    if 'username' not in session:
+        flash("Please login to access the dashboard.", "error")
+        return redirect(url_for("login"))
     return render_template("dashboard.html")
 
 @app.route("/settings")
@@ -46,5 +86,51 @@ def penny():
 def budget():
     return render_template("budget.html")
 
+# Connect to the database
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row
+    return db
+
+# Close DB when app context ends
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+
+def init_db():
+    with app.app_context():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL
+            )
+        ''')
+
+        db.commit()
+
+
+def get_user(username):
+    db = get_db()
+    cursor = db.execute('SELECT * FROM users WHERE username = ?', (username,))
+    return cursor.fetchone()
+
+def add_user(username, password):
+    try:
+        db = get_db()
+        db.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+        db.commit()
+        return True
+    except sqlite3.IntegrityError:
+        return False
+
 if __name__=="__main__":
+    init_db()
     app.run(debug=True)

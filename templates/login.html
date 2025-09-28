@@ -9,7 +9,7 @@
           <div class="navbar">
             <h1>BudgetFlow</h1>
             <nav>
-                <a href="/login">Login</a>
+                <a href="/">Home</a>
                 <a href="/dashboard">Dashboard</a>
                 <a href="/budget">Budget</a>
                 <a href="/add-expense">Add Expense</a>
@@ -18,20 +18,29 @@
             </nav>
         </div>
         <div class="login-container">
-            <form class="login-form" method="POST" action="/login">
+           <form class="login-form" method="POST" action="/login">
                 <h2>Login to BudgetFlow</h2>
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <label for="username">Email</label>
+                    <input type="email" id="username" name="username" required>
 
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" required>
+                
 
                 <button type="submit" class="btn">Login</button>
 
-                <p class="login-footer">Don't have an account? <a href="/signup">Sign up here</a></p>
-            </form>
-        </div>
+                <p class="login-footer">Don't have an account? <a href="/signup">Signup here</a></p>
+        </form>
 
+        </div>
+       
     </body>
 </html>
