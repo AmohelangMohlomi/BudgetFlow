@@ -8,7 +8,7 @@
 
 # PROJECT OVERVIEW :
 
-- PROJECT NAME : `Expense Tracker`
+- PROJECT NAME : `BudgetFlow`
 - PROGRAMMING LANGUAGE : `Python`
 - GOAL : `To create an expense tracker where a user can input their expenses & categorize them (e.g. food, entertainment, trasnport ...) and the tracker will calculate the total spent on each category and display them on a bar chart.`
 
