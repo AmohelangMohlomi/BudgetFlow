@@ -18,6 +18,33 @@ app.secret_key = 'your_secret_key'
 def home():
     return render_template("index.html")
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+@app.route("/add-expense")
+def add_expense():
+    return render_template("add-expense.html")
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
+
+@app.route("/penny")
+def penny():
+    return render_template("penny.html")
+
+@app.route("/budget")
+def budget():
+    return render_template("budget.html")
 
 if __name__=="__main__":
     app.run(debug=True)
