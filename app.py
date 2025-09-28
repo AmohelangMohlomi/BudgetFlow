@@ -74,11 +74,28 @@ def signup():
 
     return render_template('signup.html')
 
-
-@app.route("/add-expense")
+@app.route("/add-expense", methods=["GET", "POST"])
 @login_required
 def add_expense():
+    if 'username' not in session:
+        flash("Please login to add expenses.", "error")
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        amount = request.form.get("amount")
+        category = request.form.get("category")
+        description = request.form.get("description")
+        date = request.form.get("date")
+
+        user = get_user(session["username"])
+        user_id = user["id"]
+
+        save_expense(user_id, amount, category, description, date)
+        flash("Expense added successfully!", "success")
+        return redirect(url_for("dashboard"))
+
     return render_template("add-expense.html")
+
 
 @app.route("/dashboard")
 @login_required
@@ -138,7 +155,20 @@ def init_db():
             )
         ''')
 
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS expenses (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                amount REAL NOT NULL,
+                category TEXT NOT NULL,
+                description TEXT,
+                date TEXT NOT NULL,
+                FOREIGN KEY(user_id) REFERENCES users(id)
+            )
+        ''')
+
         db.commit()
+
 
 
 def get_user(username):
@@ -154,6 +184,18 @@ def add_user(username, password):
         return True
     except sqlite3.IntegrityError:
         return False
+    
+def save_expense(user_id, amount, category, description, date):
+    db = get_db()
+    db.execute(
+        '''
+        INSERT INTO expenses (user_id, amount, category, description, date)
+        VALUES (?, ?, ?, ?, ?)
+        ''',
+        (user_id, amount, category, description, date)
+    )
+    db.commit()
+
 
 if __name__=="__main__":
     init_db()
