@@ -105,10 +105,36 @@ def dashboard():
         return redirect(url_for("login"))
 
     user = get_user(session['username'])
-    user_id = user["id"]
-    expenses = get_user_expenses(user_id)
+    user_id = user['id']
 
-    return render_template("dashboard.html", expenses=expenses)
+    # Fetch budgets and spending
+    budgets = get_user_budgets(user_id)   # returns list of rows with category, amount
+    spending = get_spent_by_category(user_id)  # category, spent
+
+    # Combine them into a data structure that aligns categories
+    # For each category in budgets, find spent amount (or 0 if none)
+    data = []
+    category_labels = []
+    budget_amounts = []
+    spent_amounts = []
+
+    # Convert spending to dict for easy lookup
+    spent_dict = {row['category']: row['spent'] for row in spending}
+
+    for b in budgets:
+        cat = b['category']
+        category_labels.append(cat)
+        budget_amounts.append(b['amount'])
+        spent_amounts.append(spent_dict.get(cat, 0))
+
+    return render_template(
+        "dashboard.html",
+        categories=category_labels,
+        budgets=budget_amounts,
+        spent=spent_amounts,
+        expenses = get_user_expenses(user_id)
+    )
+
 
 
 @app.route("/settings")
@@ -121,10 +147,33 @@ def settings():
 def penny():
     return render_template("penny.html")
 
-@app.route("/budget")
+@app.route("/budget", methods=["GET", "POST"])
 @login_required
 def budget():
-    return render_template("budget.html")
+    if 'username' not in session:
+        flash("Please login to access your budget.", "error")
+        return redirect(url_for("login"))
+
+    user = get_user(session['username'])
+
+    if request.method == "POST":
+        category = request.form.get("category")
+        amount = float(request.form.get("amount"))
+
+        success = save_budget(user['id'], category, amount)
+        if success:
+            flash(f"Budget for {category} set to ${amount:.2f}", "success")
+        else:
+            flash("Error saving budget. Try again.", "error")
+
+    cursor = get_db().execute(
+        "SELECT category, amount FROM budgets WHERE user_id = ?", (user['id'],)
+    )
+    budgets = cursor.fetchall()
+
+    return render_template("budget.html", budgets=budgets)
+
+
 
 @app.route("/logout")
 @login_required
@@ -173,6 +222,16 @@ def init_db():
             )
         ''')
 
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS budgets (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                category TEXT NOT NULL,
+                amount REAL NOT NULL,
+                UNIQUE(user_id, category),
+                FOREIGN KEY(user_id) REFERENCES users(id)
+            )
+        ''')
         db.commit()
 
 
@@ -213,6 +272,40 @@ def get_user_expenses(user_id):
         (user_id,)
     )
     return cursor.fetchall()
+
+def get_user_budgets(user_id):
+    db = get_db()
+    cursor = db.execute('''
+        SELECT category, amount FROM budgets
+        WHERE user_id = ?
+    ''', (user_id,))
+    return cursor.fetchall()
+
+def get_spent_by_category(user_id):
+    db = get_db()
+    cursor = db.execute('''
+        SELECT category, SUM(amount) as spent
+        FROM expenses
+        WHERE user_id = ?
+        GROUP BY category
+    ''', (user_id,))
+    return cursor.fetchall()
+
+def save_budget(user_id, category, amount):
+    """Insert or update a budget entry for a user."""
+    db = get_db()
+    try:
+        db.execute('''
+            INSERT INTO budgets (user_id, category, amount)
+            VALUES (?, ?, ?)
+            ON CONFLICT(user_id, category) DO UPDATE SET amount = excluded.amount
+        ''', (user_id, category, amount))
+        db.commit()
+        return True
+    except Exception as e:
+        print("Error saving budget:", e)
+        return False
+
 
 
 if __name__=="__main__":

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Dashboard | BudgetFlow</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
 </head>
 <body>
 
@@ -19,19 +20,22 @@
         </nav>
     </div>
 
-    <!-- Welcome Message -->
     <div class="card">
         <h2>Welcome back{{ ', ' + session['username'] if 'username' in session else '' }} 👋</h2>
         <p>Here's a snapshot of your financial activity.</p>
     </div>
 
-    <!-- Savings Graph -->
-    <div class="card graph-container">
-        <h3>Savings Over Time</h3>
-        <img src="{{ url_for('static', filename='images/savings_graph.png') }}" alt="Savings Graph" style="width: 100%; max-width: 600px;">
-    </div>
+    
+        <div class="card graph-container">
+            <h3>Budget vs Spending by Category</h3>
+            <canvas
+                id="budgetVsSpendingChart"
+                data-categories='{{ categories | tojson }}'
+                data-budgets='{{ budgets | tojson }}'
+                data-spent='{{ spent | tojson }}'>
+            </canvas>
+        </div>
 
-        <!-- Budget Breakdown -->
         <div class="card">
         <h2>Your Expenses</h2>
 
@@ -42,7 +46,7 @@
                 <th>Date</th>
                 <th>Category</th>
                 <th>Description</th>
-                <th>Amount ($)</th>
+                <th>Amount (R)</th>
             </tr>
         </thead>
         <tbody>
@@ -81,5 +85,8 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>

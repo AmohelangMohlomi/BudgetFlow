@@ -1,0 +1,70 @@
+<!-- templates/budget.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Budget Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>BudgetFlow</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/budget">Budget</a>
+            <a href="/add-expense">Add Expense</a>
+            <a href="/penny">Talk to Penny</a>
+            <a href="/settings">Settings</a>
+        </nav>
+    </div>
+
+    <div class="card">
+        <h2>Set Your Budget</h2>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Form to add/update budget -->
+        <form action="/budget" method="POST">
+            <label for="category">Category:</label>
+            <input type="text" name="category" id="category" required>
+
+            <label for="amount">Budget Amount:</label>
+            <input type="number" name="amount" id="amount" min="0" step="0.01" required>
+
+            <button type="submit" class="btn">Save Budget</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>Your Current Budgets</h3>
+        {% if budgets %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Budget</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in budgets %}
+                    <tr>
+                        <td>{{ row.category }}</td>
+                        <td>R{{ row.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No budgets set yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
