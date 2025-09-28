@@ -19,6 +19,18 @@ app.secret_key = 'your_secret_key'
 def index():
     return render_template("index.html")
 
+from functools import wraps
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in session:
+            flash("You must be logged in to view this page.", "error")
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
@@ -64,10 +76,12 @@ def signup():
 
 
 @app.route("/add-expense")
+@login_required
 def add_expense():
     return render_template("add-expense.html")
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
     if 'username' not in session:
         flash("Please login to access the dashboard.", "error")
@@ -75,16 +89,26 @@ def dashboard():
     return render_template("dashboard.html")
 
 @app.route("/settings")
+@login_required
 def settings():
     return render_template("settings.html")
 
 @app.route("/penny")
+@login_required
 def penny():
     return render_template("penny.html")
 
 @app.route("/budget")
+@login_required
 def budget():
     return render_template("budget.html")
+
+@app.route("/logout")
+@login_required
+def logout():
+    session.clear()
+    flash("You have been logged out.", "success")
+    return redirect(url_for("login"))
 
 # Connect to the database
 def get_db():

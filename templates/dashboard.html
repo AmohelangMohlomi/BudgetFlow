@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | BudgetFlow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>BudgetFlow</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/budget">Budget</a>
+            <a href="/add-expense">Add Expense</a>
+            <a href="/penny">Talk to Penny</a>
+            <a href="/settings">Settings</a>
+        </nav>
+    </div>
+
+    <!-- Welcome Message -->
+    <div class="card">
+        <h2>Welcome back{{ ', ' + session['username'] if 'username' in session else '' }} 👋</h2>
+        <p>Here's a snapshot of your financial activity.</p>
+    </div>
+
+    <!-- Savings Graph -->
+    <div class="card graph-container">
+        <h3>Savings Over Time</h3>
+        <img src="{{ url_for('static', filename='images/savings_graph.png') }}" alt="Savings Graph" style="width: 100%; max-width: 600px;">
+    </div>
+
+    <!-- Budget Breakdown -->
+    <div class="card">
+        <h3>Spending Breakdown</h3>
+        <!-- Replace with chart later -->
+        <ul>
+            <li>🍔 Food: $250</li>
+            <li>🚗 Transport: $120</li>
+            <li>🏠 Rent: $700</li>
+            <li>🎉 Entertainment: $90</li>
+            <li>🛒 Misc: $60</li>
+        </ul>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="card">
+        <h3>Recent Expenses</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2025-09-25</td>
+                    <td>Food</td>
+                    <td>$18</td>
+                    <td>Lunch at café</td>
+                </tr>
+                <tr>
+                    <td>2025-09-24</td>
+                    <td>Transport</td>
+                    <td>$6</td>
+                    <td>Bus fare</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Penny's Advice -->
+    <div class="penny-advice">
+        You’ve been doing well this month! Try reducing your entertainment budget by 10% next week.
+    </div>
+
+    <!-- Quick Action Buttons -->
+    <div style="text-align: center; margin: 2rem 0;">
+        <a href="/add-expense" class="btn">Add Expense</a>
+        <a href="/budget" class="btn btn-warning">View Budget</a>
+        <a href="/penny" class="btn btn-danger">Talk to Penny</a>
+    </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+</body>
+</html>
