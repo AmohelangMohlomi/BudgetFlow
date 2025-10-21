@@ -1,24 +1,27 @@
 # BudgetFlow
 
-**BudgetFlow** is a smart personal budgeting web application that helps you track your expenses, build monthly budgets, and stay on top of your financial goals — all in one place.
+**BudgetFlow** is a smart personal budgeting web app that helps you track expenses, build budgets, and achieve your financial goals — all in one place.  
 
-With category-based expense tracking, insightful graphs, and AI-powered financial advice from **Penny**, your friendly budgeting assistant, BudgetFlow is your personal financial sidekick.
+It combines **data engineering and analysis** (powered by **Jupyter Notebook** for cleaning and managing user financial data) with **AI-driven insights**. Your dashboard provides real-time analysis of your financial performance, while **Penny**, your friendly AI assistant, offers personalized budgeting advice based on your spending patterns.
 
 ---
 
 ## Features
 
 - **Category-Based Expense Tracking**  
-  Add and manage expenses across categories like Transport, Food, Entertainment, and more.
+  Add and manage expenses across categories like Transport, Food, and Entertainment.
 
 - **Monthly Budget Analysis**  
-  Visualize your spending habits and savings with easy-to-understand charts.
+  Get real-time visualizations and insights into your spending and saving habits.
 
 - **AI Financial Advisor – Meet Penny**  
-  Get personalized advice from **Penny**, your built-in AI assistant, who helps you stay on track based on your financial behavior.
+  Chat with **Penny**, your AI-powered budgeting assistant, for personalized financial advice.
+
+- **Data Engineering & Analysis**  
+  Integrated **Jupyter Notebook** workflows for data cleaning, management, and financial analysis.
 
 - **Progress Tracking**  
-  See if you're within your budget and how well you're sticking to your savings goals.
+  Monitor your spending progress and stay on track with your budget goals.
 
 ---
 
@@ -26,22 +29,23 @@ With category-based expense tracking, insightful graphs, and AI-powered financia
 
 - **Backend:** Python, Flask, SQLite3  
 - **Frontend:** HTML, CSS, JavaScript  
-- **Data Visualization:** Matplotlib  
-- **AI Advisor:** Custom logic (Penny) using Python (expandable to ML in the future)
+- **Data Visualization:** Matplotlib, Jupyter Notebook  
+- **AI Integration:** SheCodes AI API (Penny)  
+- **Environment Management:** Python-dotenv  
 
 ---
 
-## Demo
+## 🎥 Demo
 
-BudgetFlow demo link ...
+*Demo.*
 
 ---
 
-## Getting Started
+## ⚙️ Getting Started
 
 ### Prerequisites
-- Python 3.x
-- `pip` for installing packages
+- Python 3.x  
+- `pip` for installing dependencies  
 
 ### Installation
 
