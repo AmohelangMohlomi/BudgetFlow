@@ -111,7 +111,7 @@ def dashboard():
     categories = []
     budgets_list = []
     spent_list = []
-    over_budget_alerts = []  # new: list of categories that are over budget
+    over_budget_alerts = []
 
     for b in budgets:
         cat = b['category']
@@ -147,7 +147,48 @@ def dashboard():
 def settings():
     return render_template("settings.html")
 
-@app.route("/penny")
+
+@app.route("/get_penny_response", methods=["POST"])
+@login_required
+def get_penny_response():
+    data = request.get_json()
+    user_message = data.get('message')
+
+    if not user_message:
+        return jsonify({'error': 'Missing user message'}), 400
+
+    prompt = (
+        "You are Penny, a helpful and friendly financial assistant. "
+        "Provide practical budgeting, saving, or spending advice in response to the user's message: "
+        f"'{user_message}'"
+    )
+
+    api_url = "https://api.shecodes.io/ai/v1/generate"
+    api_key = os.getenv("SHECODES_API_KEY")
+
+    try:
+        response = requests.get(api_url, params={
+            'prompt': prompt,
+            'key': api_key
+        }, timeout=30)
+
+        if response.status_code == 200:
+            data = response.json()
+            penny_reply = data.get("answer", "Sorry, I couldn't come up with advice right now.")
+        else:
+            penny_reply = "Error getting advice from Penny. Please try again later."
+
+    except Exception as e:
+        penny_reply = f"An error occurred: {str(e)}"
+
+    session['penny_last'] = {
+        'user_message': user_message,
+        'penny_reply': penny_reply
+    }
+
+    return jsonify({'reply': penny_reply})
+
+@app.route("/penny",methods=["GET","POST"])
 @login_required
 def penny():
     return render_template("penny.html")
