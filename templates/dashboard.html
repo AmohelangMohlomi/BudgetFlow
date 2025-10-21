@@ -85,12 +85,25 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
+        {% if over_budget_alerts %}
+<div class="card alert-card" style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 5px; margin-bottom: 1rem;">
+    <h3>Budget Alerts</h3>
+    <ul>
+        {% for alert in over_budget_alerts %}
+        <li>
+            You are over budget in <strong>{{ alert.category }}</strong> by R{{ "%.2f"|format(alert.difference) }} (Budgeted: R{{ "%.2f"|format(alert.budgeted) }}, Spent: R{{ "%.2f"|format(alert.spent) }}).
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 
           <footer>
         <p>&copy; 2025 BudgetFlow</p>
     </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
 </html>

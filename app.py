@@ -100,40 +100,45 @@ def add_expense():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    if 'username' not in session:
-        flash("Please login to access the dashboard.", "error")
-        return redirect(url_for("login"))
-
     user = get_user(session['username'])
     user_id = user['id']
 
-    # Fetch budgets and spending
-    budgets = get_user_budgets(user_id)   # returns list of rows with category, amount
-    spending = get_spent_by_category(user_id)  # category, spent
+    budgets = get_user_budgets(user_id)   
+    spending = get_spent_by_category(user_id)  
 
-    # Combine them into a data structure that aligns categories
-    # For each category in budgets, find spent amount (or 0 if none)
-    data = []
-    category_labels = []
-    budget_amounts = []
-    spent_amounts = []
-
-    # Convert spending to dict for easy lookup
     spent_dict = {row['category']: row['spent'] for row in spending}
+
+    categories = []
+    budgets_list = []
+    spent_list = []
+    over_budget_alerts = []  # new: list of categories that are over budget
 
     for b in budgets:
         cat = b['category']
-        category_labels.append(cat)
-        budget_amounts.append(b['amount'])
-        spent_amounts.append(spent_dict.get(cat, 0))
+        budget_amount = b['amount']
+        spent_amount = spent_dict.get(cat, 0)
+
+        categories.append(cat)
+        budgets_list.append(budget_amount)
+        spent_list.append(spent_amount)
+
+        if spent_amount > budget_amount:
+            over_budget_alerts.append({
+                'category': cat,
+                'budgeted': budget_amount,
+                'spent': spent_amount,
+                'difference': spent_amount - budget_amount
+            })
 
     return render_template(
         "dashboard.html",
-        categories=category_labels,
-        budgets=budget_amounts,
-        spent=spent_amounts,
-        expenses = get_user_expenses(user_id)
+        categories=categories,
+        budgets=budgets_list,
+        spent=spent_list,
+        expenses=get_user_expenses(user_id),
+        over_budget_alerts=over_budget_alerts  
     )
+
 
 
 
