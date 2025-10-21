@@ -139,6 +139,50 @@ def dashboard():
         over_budget_alerts=over_budget_alerts  
     )
 
+@app.route("/get_penny_dashboard_advice", methods=["POST"])
+@login_required
+def get_penny_dashboard_advice():
+    user = get_user(session['username'])
+    user_id = user['id']
+
+    budgets = get_user_budgets(user_id)
+    spending = get_spent_by_category(user_id)
+
+    summary_lines = []
+    for b in budgets:
+        category = b['category']
+        budget = b['amount']
+        spent = next((s['spent'] for s in spending if s['category'] == category), 0)
+        diff = spent - budget
+
+        summary_lines.append(f"{category}: Budgeted R{budget:.2f}, Spent R{spent:.2f} ({'Over' if diff > 0 else 'Under'} by R{abs(diff):.2f})")
+
+    summary_text = "\n".join(summary_lines)
+    prompt = (
+        "You are Penny, a friendly budgeting assistant. "
+        "Based on the following financial summary, give one short, specific, encouraging advice (max 2 sentences):\n"
+        f"{summary_text}"
+    )
+
+    api_url = "https://api.shecodes.io/ai/v1/generate"
+    api_key = os.getenv("SHECODES_API_KEY")
+
+    try:
+        response = requests.get(api_url, params={
+            'prompt': prompt,
+            'key': api_key
+        }, timeout=30)
+
+        if response.status_code == 200:
+            data = response.json()
+            penny_advice = data.get("answer", "Couldn't generate advice right now.")
+        else:
+            penny_advice = "Error fetching Penny's advice."
+
+    except Exception as e:
+        penny_advice = f"Penny had trouble thinking: {str(e)}"
+
+    return jsonify({'advice': penny_advice})
 
 
 

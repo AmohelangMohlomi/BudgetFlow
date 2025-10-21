@@ -20,3 +20,24 @@ if (canvas) {
         }
     });
 }
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const adviceBox = document.getElementById("pennyAdvice");
+
+  try {
+    const response = await fetch("/get_penny_dashboard_advice", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }
+    });
+
+    if (!response.ok) throw new Error("Failed to get advice");
+
+    const data = await response.json();
+    adviceBox.textContent = `Penny says: ${data.advice}`;
+  } catch (error) {
+    adviceBox.textContent = " Penny couldn't fetch your advice right now.";
+    console.error(error);
+  }
+});
+

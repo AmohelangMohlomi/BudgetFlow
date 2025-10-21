@@ -219,3 +219,21 @@ footer{
   background-color: var(--accent-green);
 }
 
+.penny-advice {
+  background-color: var(--highlight-yellow);
+  border-left: 6px solid var(--accent-green);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-style: italic;
+  margin: 1.5rem 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.penny-advice::before {
+  content: "💡 ";
+  font-weight: bold;
+}
+
+
