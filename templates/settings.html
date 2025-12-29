@@ -5,8 +5,20 @@
         <link rel="stylesheet" href="static/css/style.css">
     </head>
 
+    <div class="navbar">
+            <h1>BudgetFlow</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/budget">Budget</a>
+                <a href="/add-expense">Add Expense</a>
+                <a href="/penny">Talk to Penny</a>
+            </nav>
+        </div>
     <body>
+        <div id="acc-settings">
         <h2>Account Settings</h2>
+        </div>
         <div class="card">
             <form method="GET" action="/logout">
                 <button class="btn btn-danger" type="submit">Logout</button>
