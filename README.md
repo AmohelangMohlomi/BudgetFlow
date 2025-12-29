@@ -1,12 +1,16 @@
-# BudgetFlow
+#  🌐 BudgetFlow
 
 **BudgetFlow** is a smart personal budgeting web app that helps you track expenses, build budgets, and achieve your financial goals — all in one place.  
 
 It combines **data engineering and analysis** (powered by **Jupyter Notebook** for cleaning and managing user financial data) with **AI-driven insights**. Your dashboard provides real-time analysis of your financial performance, while **Penny**, your friendly AI assistant, offers personalized budgeting advice based on your spending patterns.
 
+## 🎥 Demo
+
+[![Watch the video](https://img.youtube.com/vi/z0FqgfMEz_4/0.jpg)](https://www.youtube.com/watch?v=z0FqgfMEz_4)
+
 ---
 
-## Features
+## ✨ Features
 
 - **Category-Based Expense Tracking**  
   Add and manage expenses across categories like Transport, Food, and Entertainment.
@@ -25,7 +29,7 @@ It combines **data engineering and analysis** (powered by **Jupyter Notebook** f
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Backend:** Python, Flask, SQLite3  
 - **Frontend:** HTML, CSS, JavaScript  
@@ -33,11 +37,18 @@ It combines **data engineering and analysis** (powered by **Jupyter Notebook** f
 - **AI Integration:** SheCodes AI API (Penny)  
 - **Environment Management:** Python-dotenv  
 
+
 ---
 
-## 🎥 Demo
+## 🛠️ Tech Stack
 
-*Demo.*
+- **HTML** – Structure and content  
+- **CSS** – Styling, layout, and responsiveness  
+- **JavaScript** – Interactivity and dynamic behavior 
+- **SQL** - To manage the database
+- **SHECodes AI API** - AI integration for penny AI
+- **Python** - Backend logic
+- **Flask** - Backend and Frontend connection 
 
 ---
 
@@ -54,3 +65,26 @@ git clone https://github.com/AmohelangMohlomi/BudgetFlow.git
 cd BudgetFlow
 pip install -r requirements.txt
 python app.py
+
+```
+
+## 📁 Project Structure
+```
+portfolio/
+│
+├── etl/
+      └── output/
+├── static/
+      └── css/
+      └── js/
+├── templates/
+├── LICENSE
+├── requirements.txt
+└── app.py
+```
+
+---
+
+## 📝 License
+
+MIT LINCENSE 
