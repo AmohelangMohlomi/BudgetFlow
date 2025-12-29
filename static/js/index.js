@@ -21,7 +21,7 @@ const ctx = document.getElementById('savingsLineChart').getContext('2d');
           beginAtZero: true,
           title: {
             display: true,
-            text: 'Amount Saved ($)'
+            text: 'Amount Saved (R)'
           }
         },
         x: {
