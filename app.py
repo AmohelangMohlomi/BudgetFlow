@@ -256,7 +256,7 @@ def budget():
 
         success = save_budget(user['id'], category, amount)
         if success:
-            flash(f"Budget for {category} set to ${amount:.2f}", "success")
+            flash(f"Budget for {category} set to R{amount:.2f}", "success")
         else:
             flash("Error saving budget. Try again.", "error")
 

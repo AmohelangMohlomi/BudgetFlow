@@ -21,7 +21,7 @@
     <div class="card">
         <h2>Set Your Budget</h2>
 
-        <!-- Flash messages -->
+      
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -30,7 +30,7 @@
             {% endif %}
         {% endwith %}
 
-        <!-- Form to add/update budget -->
+
         <form action="/budget" method="POST">
             <label for="category">Category:</label>
             <input type="text" name="category" id="category" required>
