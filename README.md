@@ -87,4 +87,4 @@ portfolio/
 
 ## 📝 License
 
-MIT LINCENSE 
+MIT LICENSE 
