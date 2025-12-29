@@ -236,4 +236,8 @@ footer{
   font-weight: bold;
 }
 
-
+#current-budgets {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,4 +1,4 @@
-<!-- templates/budget.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +45,7 @@
 
     <div class="card">
         <h3>Your Current Budgets</h3>
+        <div id="current-budgets">
         {% if budgets %}
             <table>
                 <thead>
@@ -65,6 +66,7 @@
         {% else %}
             <p>No budgets set yet.</p>
         {% endif %}
+        </div>
     </div>
       <footer>
         <p>&copy; 2025 BudgetFlow</p>
