@@ -1,5 +1,4 @@
-
-  const ctx = document.getElementById('savingsLineChart').getContext('2d');
+const ctx = document.getElementById('savingsLineChart').getContext('2d');
 
   const savingsData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], 

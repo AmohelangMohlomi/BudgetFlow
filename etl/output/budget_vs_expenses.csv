@@ -1,4 +1,0 @@
-user_id,category,budgeted_amount,total_spent,difference,status
-1,Food,300.0,50.0,-250.0,Within Budget
-1,Transport,450.0,0.0,-450.0,Within Budget
-1,Entertainment,100.0,110.0,10.0,Over Budget
