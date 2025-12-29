@@ -176,14 +176,14 @@ def get_penny_dashboard_advice():
         if response.status_code == 200:
             data = response.json()
             penny_advice = data.get("answer", "Couldn't generate advice right now.")
-            penny_advice_structured= markdown.Markdown(penny_advice)
+            
         else:
             penny_advice = "Error fetching Penny's advice."
 
     except Exception as e:
         penny_advice = f"Penny had trouble thinking: {str(e)}"
 
-    return jsonify({'advice': penny_advice_structured})
+    return jsonify({'advice': penny_advice})
 
 
 
@@ -226,12 +226,15 @@ def get_penny_response():
     except Exception as e:
         penny_reply = f"An error occurred: {str(e)}"
 
+    penny_reply_structured= markdown.markdown(penny_reply)
+
     session['penny_last'] = {
         'user_message': user_message,
-        'penny_reply': penny_reply
+        'penny_reply': penny_reply_structured
     }
 
-    return jsonify({'reply': penny_reply})
+
+    return jsonify({'reply': penny_reply_structured})
 
 @app.route("/penny",methods=["GET","POST"])
 @login_required

@@ -39,7 +39,7 @@ document.getElementById("chatForm").addEventListener("submit", async function (e
     const data = await response.json();
 
 
-    thinkingBubble.textContent = data.reply || "Sorry, I didn’t catch that.";
+    thinkingBubble.innerHTML = data.reply || "Sorry, I didn’t catch that.";
     thinkingBubble.classList.remove("thinking");
 
   } catch (error) {
